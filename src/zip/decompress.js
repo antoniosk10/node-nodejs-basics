@@ -13,7 +13,7 @@ export const decompress = async () => {
   const output = createWriteStream(filePath);
 
   pipeline(input, gunzip, output, (err) => {
-    if (err) console.log(err);
+    if (err) throw new Error("Something went wrong");
     unlink(archivedFilePath, (err) => {
       if (err) throw new Error("FS operation failed");
     });
