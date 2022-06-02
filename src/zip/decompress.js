@@ -1,4 +1,4 @@
-import { createReadStream, createWriteStream } from "fs";
+import { createReadStream, createWriteStream, unlink } from "fs";
 import { join } from "path";
 import { pipeline } from "stream";
 import zlib from "zlib";
@@ -13,7 +13,10 @@ export const decompress = async () => {
   const output = createWriteStream(filePath);
 
   pipeline(input, gunzip, output, (err) => {
-    if (err) throw new Error("Something went wrong");
+    if (err) console.log(err);
+    unlink(archivedFilePath, (err) => {
+      if (err) throw new Error("FS operation failed");
+    });
   });
 };
 

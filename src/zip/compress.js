@@ -1,4 +1,4 @@
-import { createReadStream, createWriteStream } from "fs";
+import { createReadStream, createWriteStream, unlink } from "fs";
 import { join } from "path";
 import { pipeline } from "stream";
 import zlib from "zlib";
@@ -14,6 +14,9 @@ export const compress = async () => {
 
   pipeline(input, gzip, output, (err) => {
     if (err) throw new Error("Something went wrong");
+    unlink(filePath, (err) => {
+      if (err) throw new Error("FS operation failed");
+    });
   });
 };
 
