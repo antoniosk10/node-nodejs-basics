@@ -6,7 +6,10 @@ export const parseArgs = () => {
       .reduce((acc, el) => {
         const parameterIndex = options.indexOf(el);
         return (
-          acc + `${options[parameterIndex]} is ${options[parameterIndex + 1]}, `
+          acc +
+          `${options[parameterIndex].slice(2)} is ${
+            options[parameterIndex + 1]
+          }, `
         );
       }, "")
   );
