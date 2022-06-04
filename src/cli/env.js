@@ -1,3 +1,9 @@
 export const parseEnv = () => {
-    // Write your code here 
+  console.log(
+    Object.keys(process.env)
+      .filter((el) => el.match(/^RSS_/))
+      .reduce((acc, el) => acc + `${el}=${process.env[el]}; `, "")
+  );
 };
+
+parseEnv();
